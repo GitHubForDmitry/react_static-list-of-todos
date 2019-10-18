@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function Todos({ todo }) {
   return (
     <h1>
-      User Name:{todo}
+      Title{todo.title}
     </h1>
   );
 }
