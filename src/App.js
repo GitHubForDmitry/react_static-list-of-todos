@@ -14,7 +14,7 @@ function App() {
   const result = preparedTodos.map(todo => (
     <div className="App">
       <Users user={todo.user} />
-      <Todos todo={todo} />
+      <Todos item={todo} />
     </div>
   ))
   return (

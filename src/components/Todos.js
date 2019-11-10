@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Todos({ todo }) {
+function Todos({ item }) {
   return (
     <h1>
-      Title{todo.title}
+      Title{ item.title }
     </h1>
   );
 }
