@@ -12,13 +12,15 @@ const preparedTodos = todos.map(todo => ({
 
 function App() {
   const result = preparedTodos.map(todo => (
-    <div className="App">
+    <div key={todo.id + new Date()}>
       <Users user={todo.user} />
       <Todos item={todo} />
     </div>
-  ))
+  ));
   return (
-    { result }
+    <div className="App">
+      { result }
+    </div>
   );
 }
 
