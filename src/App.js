@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Users  from './components/Users';
-import Todos  from './components/Todos';
+import Users from './components/Users';
+import Todos from './components/Todos';
 import todos from './api/todos';
 import users from './api/users';
 
@@ -11,7 +11,6 @@ const preparedTodos = todos.map(todo => ({
 }));
 
 function App() {
-  console.log(preparedTodos)
   const result = preparedTodos.map(todo => (
     <div className="App">
       <Users user={todo.user} />
