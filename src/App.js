@@ -10,8 +10,8 @@ const preparedTodos = todos.map(todo => ({
   user: users.find(user => user.id === todo.userId),
 }));
 
-
 function App() {
+  console.log(preparedTodos)
   const result = preparedTodos.map(todo => (
     <div className="App">
       <Users user={todo.user} />

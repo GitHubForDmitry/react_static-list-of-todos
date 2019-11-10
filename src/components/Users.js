@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function Users({ user }) {
   return (
     <h1>
-      User Name:{user}
+      User Name:{user.name}
     </h1>
   );
 }
