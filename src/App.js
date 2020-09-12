@@ -1,59 +1,55 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 // or less ideally
 import { Button } from 'react-bootstrap'
 import todos from './api/todos';
 import users from './api/users';
 
-function App() {
-  // userId: 1,
-  //   id: 1,
-  //   title: 'delectus aut autem',
-  //   completed: false,
-  const allUsers = todos.map(item => {return (
-    {
-      userId: item.userId,
-      id: item.id,
-      title: item.title,
-      completed: item.completed,
-      users: users.find(user => user.id === item.userId)
+function App(props) {
 
-    }
-  )
 
-  })
+  const [filterUser, setFilterUser] = React.useState(false);
+  const [items, setItems] = React.useState([]);
+  const [search, setSearch] = React.useState('');
+  const [userId, setUserId] = React.useState(1);
 
-  const onchange = (e) => console.log(e)
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(response => response.json())
+      .then(json => setItems(json))
+  }, [])
+
+
+  const reverse = (arr) => {
+    const res = arr.reverse();
+    setItems([...res]);
+  }
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  }
+
+  const handleChangeUserId = (e) => {
+    setUserId(e.target.value);
+    !!userId ? setFilterUser(true) : setFilterUser(false)
+  }
   return (
-    <div className="App">
-      <h1>Static list of todos</h1>
-      <p>
-        <span>Todos: </span>
-        {todos.length}
-      </p>
-
-      <p>
-        <span>Users: </span>
-        {users.length}
-      </p>
-      <div className="container">
-        {allUsers.map(item => { return (
-          <div className='container__block' key={item.id}>
-          <div>{item.id}</div>
-          <div>{item.title}</div>
-          <div>{item.users.name}</div>
-
-            {item.completed ?
-            <input type="checkbox" checked onChange={event => onchange(event.target.value)}/>
-              :
-              <input type="checkbox" onChange={event => onchange(event.target.value)}/>
-            }
-
+    <div>
+      <button onClick={() => reverse(items)}>rev</button>
+      <input type="search" onChange={(e) => handleSearch(e)} />
+      <select onChange={event => handleChangeUserId(event)}>
+          <option value='1'>1</option>
+          <option value='5'>5</option>
+          <option value='10'>10</option>
+      </select>
+      {items.filter(item => item.title.includes(search)).filter(user => filterUser ? user.userId === +userId : true).map((item, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <li key={index}>
+          <div>
+            {item.title}
           </div>
-          )})}
-
-      </div>
-
+        </li>
+      ))}
     </div>
   );
 }
